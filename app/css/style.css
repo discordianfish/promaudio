@@ -34,3 +34,7 @@ fieldset button {
   margin: 0 auto;
   max-width: 600px;
 }
+.error {
+  font-weight: bold;
+  color: red;
+}

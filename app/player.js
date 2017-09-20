@@ -107,15 +107,25 @@ export default class Player extends Component {
     });
   }
 
-  render(props, state) {
-    let results = "No results";
+  getResults() {
     if (this.state.error) {
-      results = <div className="error">{this.state.error.message}</div>
-    } else {
-      if (this.state.samples && this.state.samples.length > 0) {
-        results = <pre>{JSON.stringify(this.state.samples, null, 2)}</pre>
-      }
+      return <div className="error">{this.state.error.message}</div>
     }
+    let results = []
+    let scheme = window.location.protocol;
+    if (
+      scheme == "https:" &&
+      this.state.url.indexOf(scheme) != 0) {
+      results.push(<div className="error">When using the HTTPS site, you need to specify a HTTPS Prometheus URL</div>)
+    }
+    if (this.state.samples && this.state.samples.length > 0) {
+      results.push(<pre>{JSON.stringify(this.state.samples, null, 2)}</pre>)
+    }
+    return results
+  }
+
+  render(props, state) {
+    let results = this.getResults();
     return <div>
       <form onSubmit={this.submit} className="pure-form">
         <div className="pure-g">
