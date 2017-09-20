@@ -5,6 +5,7 @@
     "start": "webpack-dev-server --host 0.0.0.0",
     "build": "webpack --config webpack.prod.js",
     "deploy": "aws s3 cp --recursive dist/ s3://promaudio.5pi.de/",
+    "lint": "eslint .",
     "deploy-gh": "gh-pages -d dist"
   },
   "babel": {
@@ -23,10 +24,14 @@
   "dependencies": {
     "assets-webpack-plugin": "^3.5.1",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-es2016": "^6.24.1",
     "css-loader": "^0.28.7",
+    "eslint": "^4.7.1",
+    "eslint-config-google": "^0.9.1",
+    "eslint-config-standard-preact": "^1.1.6",
     "gh-pages": "^1.0.0",
     "html-webpack-plugin": "^2.30.1",
     "jimp": "^0.2.28",

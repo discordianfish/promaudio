@@ -3,7 +3,7 @@ const Merge = require('webpack-merge');
 
 const CommonConfig = require('./webpack.config.js');
 
-module.exports = Merge(CommonConfig, {
+module.exports = Merge(CommonConfig, { // eslint-disable-line new-cap
   devtool: 'cheap-module-source-map',
   plugins: [
     // Appears to be needed even though we set NODE_ENV outside which again is
