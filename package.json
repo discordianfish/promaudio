@@ -4,7 +4,8 @@
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0",
     "build": "webpack --config webpack.prod.js",
-    "deploy": "gh-pages -d dist"
+    "deploy": "aws s3 cp --recursive dist/ s3://promaudio.5pi.de/",
+    "deploy-gh": "gh-pages -d dist"
   },
   "babel": {
     "presets": [

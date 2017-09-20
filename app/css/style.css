@@ -5,6 +5,17 @@ fieldset {
 fieldset input {
   display: block !important;
   margin-bottom: 1em;
+  width: 100%;
+}
+
+fieldset .volume {
+  font-size: 175%;
+}
+
+fieldset .volume input {
+  display: inline !important;
+  margin-left: 0.5em;
+  width: calc(100% - 1.5em);
 }
 
 fieldset button {
@@ -12,6 +23,7 @@ fieldset button {
   font-size: 150% !important;
   line-height: 0.75 !important;
 }
+
 
 .results {
   height: 13em;

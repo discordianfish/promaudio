@@ -4,6 +4,8 @@ import linkState from 'linkstate';
 const defaultURL = "http://demo.robustperception.io:9090";
 const sampleRate = 44100;
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const gain = audioCtx.createGain();
+gain.connect(audioCtx.destination);
 
 const oscTypes = [ 'sine', 'square', 'sawtooth', 'triangle' ];
 
@@ -18,6 +20,7 @@ export default class Player extends Component {
       range: 3600,
       sampleCount: 1000,
       sampleDuration: 0.1,
+      volume: 50,
     }
     this.submit = this.submit.bind(this);
     this.tune = this.tune.bind(this);
@@ -45,6 +48,7 @@ export default class Player extends Component {
     e.preventDefault();
     clearTimeout(this.clock);
     this.state.oscs.map((osc) => { osc.stop() });
+    this.state.oscs = null;
   }
   submit(e) {
     e.preventDefault();
@@ -56,7 +60,7 @@ export default class Player extends Component {
           var osc = audioCtx.createOscillator();
           osc.type = oscTypes[Math.floor(Math.random()*oscTypes.length)];
           osc.frequency.value = 440;
-          osc.connect(audioCtx.destination);
+          osc.connect(gain);
           osc.start();
           oscs.push(osc);
 
@@ -126,6 +130,13 @@ export default class Player extends Component {
                 <button className="pure-button" type="submit">&#9654;</button>
                 <button className="pure-button" onClick={this.stop}>&#9632;</button>
               </div>
+              <label className="volume">
+                &#128266;
+                <input type="range" value={this.state.volume} onInput={(e) => {
+                  this.setState({volume: e.target.value});
+                  gain.gain.value = e.target.value / 100;
+                }}/>
+              </label>
               <label>Prometheus URL
                 <input type="text" placeholder="Prometheus URL" value={this.state.url} onInput={linkState(this, 'url')}/>
               </label>
