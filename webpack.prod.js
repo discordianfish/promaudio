@@ -4,9 +4,6 @@ const Merge = require('webpack-merge');
 const CommonConfig = require('./webpack.config.js');
 
 module.exports = Merge(CommonConfig, {
-  output: {
-    publicPath: '/promaudio/'
-  },
   devtool: 'cheap-module-source-map',
   plugins: [
     // Appears to be needed even though we set NODE_ENV outside which again is
