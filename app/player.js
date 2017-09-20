@@ -25,29 +25,39 @@ export default class Player extends Component {
         this.state.oscs[i].stop()
         return
       }
-      const freq = series.values[this.state.frame][1] * 10000;
-      console.log("tuning", i, "to", freq)
 
-      this.state.oscs[i].frequency.value = freq
+      // -22050, 22050
+      const freq = (series.values[this.state.frame][1]/this.state.maxVal) * sampleRate;
+      console.log("tuning", i, "to", freq, "using maxval", this.state.maxVal)
+
+      this.state.oscs[i].frequency.value = freq - (sampleRate/2)
     });
   }
   submit(e) {
     e.preventDefault();
     this.query(this.state.query)
       .then((res) => {
+        var maxVal = 0;
         var oscs = [];
-        for (var series in res.data.result) {
+        res.data.result.map((series) => {
           var osc = audioCtx.createOscillator();
           osc.frequency.value = 440;
           osc.connect(audioCtx.destination);
           osc.start();
-          oscs.push(osc)
-        }
+          oscs.push(osc);
+
+          series.values.map((val) => {
+            if (val[1] > maxVal) {
+              maxVal = val[1]
+            }
+          });
+        });
 
         this.setState({
           samples: res.data.result,
           oscs: oscs,
           frame: 0,
+          maxVal: maxVal,
         })
         this.clock = setInterval(() => {
           this.setState({frame: this.state.frame+1});
