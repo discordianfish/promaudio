@@ -1,0 +1,19 @@
+general:
+  branches:
+    ignore:
+      - gh-pages
+
+dependencies:
+  pre:
+    - npm install
+    - npm run build
+
+test:
+  override:
+    - "true"
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - npm run deploy
