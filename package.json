@@ -10,7 +10,12 @@
       "es2016"
     ],
     "plugins": [
-      [ "transform-react-jsx", { "pragma": "h" } ]
+      [
+        "transform-react-jsx",
+        {
+          "pragma": "h"
+        }
+      ]
     ]
   },
   "dependencies": {
@@ -19,8 +24,12 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-es2016": "^6.24.1",
+    "css-loader": "^0.28.7",
     "html-webpack-plugin": "^2.30.1",
+    "linkstate": "^1.1.0",
     "preact": "^8.2.5",
+    "purecss": "^1.0.0",
+    "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2"
   },

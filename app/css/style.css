@@ -1,0 +1,13 @@
+fieldset {
+  margin-left: 1em !important;
+}
+
+fieldset * {
+  display: block !important;
+  margin-bottom: 1em;
+}
+
+.results {
+  height: 10em;
+  overflow-y: auto;
+}
