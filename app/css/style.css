@@ -2,12 +2,23 @@ fieldset {
   margin-left: 1em !important;
 }
 
-fieldset * {
+fieldset input {
   display: block !important;
   margin-bottom: 1em;
+}
+
+fieldset button {
+  margin-right: 1em;
+  font-size: 150% !important;
+  line-height: 0.75 !important;
 }
 
 .results {
   height: 10em;
   overflow-y: auto;
+}
+
+#app {
+  margin: 0 auto;
+  max-width: 600px;
 }

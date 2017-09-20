@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack",
+    "deploy": "gh-pages -d dist"
   },
   "babel": {
     "presets": [
@@ -25,10 +26,13 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-es2016": "^6.24.1",
     "css-loader": "^0.28.7",
+    "gh-pages": "^1.0.0",
     "html-webpack-plugin": "^2.30.1",
+    "jimp": "^0.2.28",
     "linkstate": "^1.1.0",
     "preact": "^8.2.5",
     "purecss": "^1.0.0",
+    "responsive-loader": "^1.1.0",
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2"

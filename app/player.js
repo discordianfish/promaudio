@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import linkState from 'linkstate';
 
-const defaultURL = "http://localhost:9090";
+const defaultURL = "http://demo.robustperception.io:9090";
 const sampleRate = 44100;
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -34,8 +34,8 @@ export default class Player extends Component {
       }
 
       // -22050, 22050
-      const freq = (series.values[this.state.frame][1]/this.state.maxVal) * sampleRate;
-      console.log("tuning", i, "to", freq, "using maxval", this.state.maxVal)
+      const ratio = (series.values[this.state.frame][1]/this.state.maxVal)
+      const freq = ratio * sampleRate;
 
       this.state.oscs[i].frequency.value = freq - (sampleRate/2)
     });
@@ -44,7 +44,6 @@ export default class Player extends Component {
     e.preventDefault();
     clearTimeout(this.clock);
     this.state.oscs.map((osc) => { osc.stop() });
-    console.log("stopped");
   }
   submit(e) {
     e.preventDefault();
@@ -60,8 +59,9 @@ export default class Player extends Component {
           oscs.push(osc);
 
           series.values.map((val) => {
-            if (val[1] > maxVal) {
-              maxVal = val[1]
+            const v = parseInt(val[1]);
+            if (v > maxVal) {
+              maxVal = v
             }
           });
         });
@@ -120,8 +120,10 @@ export default class Player extends Component {
           </div>
           <div className="pure-u-2-5">
             <fieldset>
-              <button style={{padding: '1em'}} className="pure-button" type="submit">&#9654;</button>
-              <button style={{padding: '1em'}} className="pure-button" onClick={this.stop}>&#9632;</button>
+              <div style={{marginBottom: '1em'}}>
+                <button className="pure-button" type="submit">&#9654;</button>
+                <button className="pure-button" onClick={this.stop}>&#9632;</button>
+              </div>
               <label>Prometheus URL
                 <input type="text" placeholder="Prometheus URL" value={this.state.url} onInput={linkState(this, 'url')}/>
               </label>

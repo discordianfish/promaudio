@@ -55,6 +55,10 @@ module.exports = {
           {loader: 'markdown-loader'},
         ],
       },
+      {
+        test: /\.(jpe?g|png)$/i,
+        loader: 'responsive-loader',
+      },
     ],
   },
   plugins: [
