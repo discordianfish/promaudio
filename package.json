@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0",
-    "build": "webpack",
+    "build": "webpack --config webpack.prod.js",
     "deploy": "gh-pages -d dist"
   },
   "babel": {
@@ -35,7 +35,8 @@
     "responsive-loader": "^1.1.0",
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.8.2"
+    "webpack-dev-server": "^2.8.2",
+    "webpack-merge": "^4.1.0"
   },
   "devDependencies": {}
 }
