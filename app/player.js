@@ -3,8 +3,9 @@ import linkState from 'linkstate';
 
 const defaultURL = "http://demo.robustperception.io:9090";
 const sampleRate = 44100;
-
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+const oscTypes = [ 'sine', 'square', 'sawtooth', 'triangle' ];
 
 export default class Player extends Component {
   constructor() {
@@ -33,11 +34,11 @@ export default class Player extends Component {
         return
       }
 
-      // -22050, 22050
       const ratio = (series.values[this.state.frame][1]/this.state.maxVal)
-      const freq = ratio * sampleRate;
+      const freq = (ratio * sampleRate/2)
+      // console.log("freq", freq)
 
-      this.state.oscs[i].frequency.value = freq - (sampleRate/2)
+      this.state.oscs[i].frequency.value = freq; //  - (sampleRate/2)
     });
   }
   stop(e) {
@@ -53,6 +54,7 @@ export default class Player extends Component {
         var oscs = [];
         res.data.result.map((series) => {
           var osc = audioCtx.createOscillator();
+          osc.type = oscTypes[Math.floor(Math.random()*oscTypes.length)];
           osc.frequency.value = 440;
           osc.connect(audioCtx.destination);
           osc.start();
