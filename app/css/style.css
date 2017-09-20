@@ -2,7 +2,7 @@ fieldset {
   margin-left: 1em !important;
 }
 
-fieldset input {
+fieldset input, select {
   display: block !important;
   margin-bottom: 1em;
   width: 100%;
@@ -24,9 +24,8 @@ fieldset button {
   line-height: 0.75 !important;
 }
 
-
 .results {
-  height: 13em;
+  height: 21em;
   overflow-y: auto;
 }
 

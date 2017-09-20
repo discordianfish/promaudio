@@ -21,6 +21,7 @@ export default class Player extends Component {
       sampleCount: 1000,
       sampleDuration: 0.1,
       volume: 50,
+      oscType: '<random>',
     }
     this.submit = this.submit.bind(this);
     this.tune = this.tune.bind(this);
@@ -57,8 +58,10 @@ export default class Player extends Component {
         var maxVal = 0;
         var oscs = [];
         res.data.result.map((series) => {
+          const oscType = this.state.oscType == '<random>' ? 
+            oscTypes[Math.floor(Math.random()*oscTypes.length)] : this.state.oscType
           var osc = audioCtx.createOscillator();
-          osc.type = oscTypes[Math.floor(Math.random()*oscTypes.length)];
+          osc.type = oscType
           osc.frequency.value = 440;
           osc.connect(gain);
           osc.start();
@@ -126,6 +129,7 @@ export default class Player extends Component {
 
   render(props, state) {
     let results = this.getResults();
+    let oscTypeOptions = ['<random>', ...oscTypes].map((o) => { return(<option>{o}</option>) });
     return <div>
       <form onSubmit={this.submit} className="pure-form">
         <div className="pure-g">
@@ -161,6 +165,11 @@ export default class Player extends Component {
               </label>
               <label>Sample Duration
                 <input type="text" placeholder="Sample duration" value={this.state.sampleDuration} onInput={linkState(this, 'sampleDuration')}/>
+              </label>
+              <label>Oscillator type
+                <select onInput={linkState(this, 'oscType')}>
+                  {oscTypeOptions}
+                </select>
               </label>
             </fieldset>
           </div>
